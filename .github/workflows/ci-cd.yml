@@ -36,6 +36,6 @@ jobs:
 
       # Шаг 4: Деплой на Railway
       - name: Deploy to Railway
-        run: railway up
+        run: railway up --service devops-application-1
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
