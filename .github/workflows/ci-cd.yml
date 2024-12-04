@@ -1,0 +1,35 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Шаг 1: Установка Java
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Шаг 2: Сборка проекта с Maven
+      - name: Build with Maven
+        run: mvn clean package
+
+      # Шаг 3: Сборка Docker образа
+      - name: Build Docker image
+        run: docker build --no-cache -t my-app .
+
+      # Шаг 4: Деплой на Railway
+      - name: Deploy to Railway
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
