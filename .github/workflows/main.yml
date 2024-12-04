@@ -1,0 +1,31 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Пайплайн будет запускаться при пуше в основную ветку
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Операционная система для выполнения пайплайна
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Шаг для получения кода репозитория
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean package  # Сборка проекта с использованием Maven
+
+      - name: Run tests
+        run: mvn test  # Запуск юнит-тестов
+
+      - name: Deploy to Railway
+        run: railway up  # Пример деплоя на Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
