@@ -25,17 +25,13 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      # Шаг 4: Сборка Docker образа
-      - name: Build Docker image
-        run: docker build --no-cache -t my-app .
-
-      # Шаг 5: Установка Railway CLI
+      # Шаг 4: Установка Railway CLI
       - name: Install Railway CLI
         run: |
           curl -sSL https://railway.app/install.sh | sh
           export PATH=$PATH:$HOME/.railway/bin
 
-      # Шаг 6: Деплой на Railway
+      # Шаг 5: Деплой на Railway
       - name: Deploy to Railway
         run: railway up --service devops-application-1
         env:
