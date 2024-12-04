@@ -4,7 +4,8 @@ FROM openjdk:17-jdk-slim
 # Указываем рабочую директорию
 WORKDIR /app
 
-# Копируем jar-файл в контейнер
+# Копируем JAR-файл в контейнер
+# Убедитесь, что путь к файлу правильный
 COPY target/devops-application-1-0.0.1-SNAPSHOT.jar app.jar
 
 # Указываем команду для запуска приложения
